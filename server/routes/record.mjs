@@ -1,14 +1,14 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
-//import checkauth from "../check-auth.mjs";
+import CheckAuth from "../check-auth.mjs";
 import jwt from "jsonwebtoken";
-import checkauth from '../check-auth.mjs';
+//import checkauth from '../check-auth.mjs';
 
 const router = express.Router();
 
 // This section will help you get a list of all the records.
-router.get("/", checkauth, async (req, res) => {
+router.get("/", async (req, res) => {
   let collection = await db.collection("records");
   let results = await collection.find({}).toArray();
   res.send(results).status(200);

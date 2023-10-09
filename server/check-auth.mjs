@@ -1,4 +1,4 @@
-/*import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 class CheckAuth {
  constructor(req, res, next) {
@@ -26,10 +26,10 @@ class CheckAuth {
  }
 }
 
-export default CheckAuth;*/
+export default CheckAuth;
 
 
-import jwt from "jsonwebtoken";
+/*import jwt from "jsonwebtoken";
 
 const checkauth=(req,res,next)=>
 {
@@ -43,4 +43,4 @@ const checkauth=(req,res,next)=>
         console.log("token not found");
     }
 };
-export default checkauth;
+export default checkauth;*/
