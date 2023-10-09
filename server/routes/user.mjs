@@ -1,6 +1,7 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import ExpressBrute  from "express-brute";
@@ -13,12 +14,7 @@ var bruteforce = new ExpressBrute(store);
 
 
 
-// This section will help you get a list of all the records.
-router.get("/", async (req, res) => {
-  let collection = await db.collection("users");
-  let results = await collection.find({}).toArray();
-  res.send(results).status(200);
-});
+
 
 // This section will help you get a single record by id
 router.get("/:id", async (req, res) => {
@@ -31,7 +27,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // sign up.
-router.post("/", async (req, res) => {
+router.post("/signup", async (req, res) => {
 const password = bcrypt.hash(req.body.password,10)
   let newDocument = {
     name: req.body.name,
@@ -88,9 +84,10 @@ router.post("/login",bruteforce.prevent, async (req, res) => {
     }
 
     // Authentication successful
-    res.status(200).json({ message: "Authentication successful" });
+
     const token = jwt.sign({username:req.body.username, password  : req.body.password},"this_secret_should_be_longer_than_it_is",{expiresIn:"1h"})
     console.log("your new token is", token)
+    res.status(200).json({ message: "Authentication successful", message : token });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ message: "Login failed" });
